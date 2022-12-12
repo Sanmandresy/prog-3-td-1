@@ -3,10 +3,12 @@ package app.prog.service;
 import app.prog.model.BookEntity;
 import app.prog.repository.BookRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @AllArgsConstructor
@@ -35,6 +37,13 @@ public class BookService {
 
         T is the type of the value, for example : here the class type is BookEntity
          */
+
+        /*
+        I will use int because null value
+        will not be passed as a parameter
+        so Integer is not necessary
+        */
+
         Optional<BookEntity> optional = repository.findById(String.valueOf(BookEntityId));
         if (optional.isPresent()) {
             repository.delete(optional.get());
@@ -48,7 +57,7 @@ public class BookService {
         Link 1 : https://www.baeldung.com/spring-response-entity
         Link 2 : https://www.baeldung.com/exception-handling-for-rest-with-spring
          */
-            throw new RuntimeException("BookEntity." + BookEntityId + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"BookEntity." + BookEntityId + " not found");
         }
     }
 }
