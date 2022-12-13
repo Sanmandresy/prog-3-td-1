@@ -18,6 +18,13 @@ public class AuthorService {
         return repository.findAll();
     }
 
+    public AuthorEntity getByName(String name) {
+        return repository.findByName(name).orElseThrow(
+            () ->
+                new NotFoundException("Author." + name + " not found")
+        );
+    }
+
     public List<AuthorEntity> createAuthors(List<AuthorEntity> toCreate) {
         return repository.saveAll(toCreate);
     }

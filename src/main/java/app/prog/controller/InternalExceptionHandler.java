@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class InternalExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler({NotFoundException.class})
-  ResponseEntity<Object> handleNotFoundRequest(NotFoundException e) {
+  ResponseEntity<NotFoundException> handleNotFoundRequest(NotFoundException e) {
     return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
   }
 }
